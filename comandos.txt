@@ -1,0 +1,9 @@
+
+docker-compose --project-name risco_workshop up 
+
+
+
+docker build -t teste -f Dockerfile_riscosrv .
+
+
+docker run -p 8020:8020 -it teste

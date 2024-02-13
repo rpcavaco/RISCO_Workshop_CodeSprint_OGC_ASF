@@ -1,0 +1,22 @@
+services:
+
+  db:
+    container_name: riscows_db
+    build:
+      context: .
+      dockerfile: Dockerfile_postgis
+    environment:
+      POSTGRES_PASSWORD: pstg_pass501
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data:/var/lib/postgresql
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+volumes:
+  pg_data:
+
