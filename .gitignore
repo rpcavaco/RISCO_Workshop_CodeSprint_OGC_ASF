@@ -4,5 +4,7 @@ dados/primeira_tentativa_dados_porto
 *.gpkg
 *.geojson
 *config.json
+issues.md
+
 
 
