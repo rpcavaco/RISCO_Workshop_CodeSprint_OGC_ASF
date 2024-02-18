@@ -41,4 +41,11 @@ To first get docker images and create needed containers, you must:
 
 	For a complete cleanup, check docker docs for cleaning up images and volumes.
 
+--- Compose frontend
 
+
+
+
+---------------------------
+
+$ docker run -it --rm --net=host -p 9200:9200 -v caddy_data:/data -v caddy_config:/config -v $PWD/caddy/caddy.json:/srv/caddy.json --mount type=bind,source=$PWD/caddylog,target=/var/log caddy caddy run --config caddy.json
