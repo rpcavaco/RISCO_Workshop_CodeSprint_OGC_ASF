@@ -16,7 +16,7 @@ To first get docker images and create needed containers, you must:
 2. Choose a working folder (with 'cd'), in case you need to save or retrieve files
 3. type 'docker-compose':
 
-		docker-compose --project-name risco_workshop up 
+		docker-compose --project-name risco_workshop -f compose.yaml up 
 
 4. Confirm success using Adminer, open a browser window and type in address bar:
 
@@ -60,3 +60,9 @@ $ docker run -it --rm --net=host -p 9200:9200 -v caddy_data:/data -v caddy_confi
 
 
 docker run -it --rm --net=host -v caddy_data:/data -v caddy_config:/config -v $PWD/caddy_cfg/caddy.json:/srv/caddy.json caddy caddy run --config caddy.json
+
+
+-- DEv
+
+
+		docker-compose --project-name risco_workshop -f compose.yaml -f compose.dev.yaml up 

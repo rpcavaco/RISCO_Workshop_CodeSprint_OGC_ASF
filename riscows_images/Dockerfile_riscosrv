@@ -8,6 +8,8 @@ ENV GOFLAGS=-mod=mod
 RUN mkdir /app
 WORKDIR /app
 
+RUN mkdir log
+
 COPY ./riscosrv_src/ .
 COPY ./riscosrv_cfg/ .
 

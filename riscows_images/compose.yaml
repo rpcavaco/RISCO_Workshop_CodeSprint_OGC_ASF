@@ -2,22 +2,14 @@
 services:
 
   riscosrv:
+    image: rpcavaco/risco_workshop_riscosrv:latest
     container_name: rws_riscosrv
-    build:
-      context: .
-      dockerfile: Dockerfile_riscosrv
-    network_mode: host
 
   revprox:
+    image: rpcavaco/risco_workshop_revprox:latest
     container_name: rws_caddyrevprox
-    build:
-      context: .
-      dockerfile: Dockerfile_caddy
-    network_mode: host
 
   webapp:
+    image: rpcavaco/risco_workshop_webapp:latest
     container_name: rws_webapp
-    build:
-      context: .
-      dockerfile: Dockerfile_webapp
-    network_mode: host
+    
