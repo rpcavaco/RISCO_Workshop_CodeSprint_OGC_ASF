@@ -44,9 +44,17 @@ To first get docker images and create needed containers, you must:
 --- Compose frontend
 
 
+----------------------------------
+
+-- Containers avulsos
+
+- Risco server
+- 
+docker build -t teste -f Dockerfile_riscosrv .
+docker run --net=host -it --rm teste
 
 
----------------------------
+-- Caddy
 
 $ docker run -it --rm --net=host -p 9200:9200 -v caddy_data:/data -v caddy_config:/config -v $PWD/caddy/caddy.json:/srv/caddy.json --mount type=bind,source=$PWD/caddylog,target=/var/log caddy caddy run --config caddy.json
 

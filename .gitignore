@@ -4,7 +4,11 @@ dados/primeira_tentativa_dados_porto
 *.gpkg
 *.geojson
 *config.json
+dbconn*
 issues.md
 linkedin_text.txt
 caddylog/
+lixo/
+*.png
+*.jpg
 

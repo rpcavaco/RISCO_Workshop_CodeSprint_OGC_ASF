@@ -16,9 +16,9 @@ RUN go mod verify
 
 RUN go build -o riscosrv_v2
 
-EXPOSE 8020
+# EXPOSE 8020
 
 
 # command to be used to execute when the image is used to start a container
 
-# CMD [ "/app/riscosrv_v2" ]
+CMD [ "/app/riscosrv_v2" ]

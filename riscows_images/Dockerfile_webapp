@@ -1,0 +1,21 @@
+# syntax=docker/dockerfile:1
+
+FROM python:3.12-bullseye
+
+RUN mkdir /apphome
+WORKDIR /apphome
+
+RUN mkdir /apphome/configs
+RUN mkdir /apphome/log
+
+COPY ./riscowebapp_cfg/dbconn_pg.json /apphome/configs/dbconn_pg.json
+COPY ./riscowebapp_cfg/config.json /apphome/configs/config.json
+
+COPY ./riscowebapp_src/requirements.txt /apphome/requirements.txt
+
+RUN pip install --progress-bar off --no-cache-dir --upgrade -r /apphome/requirements.txt
+
+COPY ./riscowebapp_src/webapp /apphome/webapp
+
+WORKDIR /apphome/webapp
+CMD ["uvicorn", "webapp:app", "--host", "0.0.0.0", "--port", "8030"]
