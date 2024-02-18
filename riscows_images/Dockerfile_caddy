@@ -1,0 +1,9 @@
+# syntax=docker/dockerfile:1
+
+FROM caddy:2.7.6-alpine
+
+COPY ./caddy_cfg/caddy.json /srv
+
+CMD ["caddy", "run", "--config", "caddy.json"]
+
+

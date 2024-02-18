@@ -1,0 +1,12 @@
+
+services:
+
+  revprox:
+    container_name: rws_caddyrevprox
+    build:
+      context: .
+      dockerfile: Dockerfile_caddy
+    network_mode: host
+
+
+

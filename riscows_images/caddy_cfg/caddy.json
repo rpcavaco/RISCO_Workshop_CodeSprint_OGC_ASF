@@ -1,6 +1,5 @@
 
 {
-	"admin":{"disabled":true},
 	"apps": {
 		"http": {
 			"servers": {
