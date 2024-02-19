@@ -4,12 +4,25 @@ services:
   riscosrv:
     image: rpcavaco/risco_workshop_riscosrv:latest
     container_name: rws_riscosrv
+    network_mode: host
+    volumes:
+      - type: bind
+        source: ./cont_shared_folders/riscosrv/log
+        target: /app/log
 
   revprox:
     image: rpcavaco/risco_workshop_revprox:latest
     container_name: rws_caddyrevprox
+    network_mode: host
 
   webapp:
     image: rpcavaco/risco_workshop_webapp:latest
     container_name: rws_webapp
-    
+    network_mode: host
+    volumes:
+      - type: bind
+        source: ./cont_shared_folders/log
+        target: /apphome/log
+      - type: bind
+        source: ./cont_shared_folders/webapp/static
+        target: /apphome/webapp/static

@@ -12,7 +12,13 @@ touch log.txt;
 popd;
 popd;
 mkdir webapp;
+mkdir log;
 
-cp -r /mnt/Dados/Associacoes/RISCO_Workshop_CodeSprint_OGC_ASF/riscows_images/riscowebapp_src/webapp/static ./webapp
+pushd webapp;
 
-mkdir log
+
+FROM_PATH=/mnt/Dados/Associacoes/RISCO_Workshop_CodeSprint_OGC_ASF/riscows_images/riscowebapp_src/webapp/static;
+
+cp -r $FROM_PATH .;
+
+

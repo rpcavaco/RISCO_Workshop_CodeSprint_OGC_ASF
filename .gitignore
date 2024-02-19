@@ -12,5 +12,6 @@ lixo/
 *.png
 *.jpg
 cont_shared_folders/
+riscows_images/riscowebapp_src/
 
-
+git rm --cache 

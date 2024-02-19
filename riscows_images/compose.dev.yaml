@@ -5,27 +5,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_riscosrv
-    network_mode: host
-    volumes:
-      - type: bind
-        source: ./cont_shared_folders/riscosrv/log
-        target: /app/log
 
   revprox:
     build:
       context: .
       dockerfile: Dockerfile_caddy
-    network_mode: host
 
   webapp:
     build:
       context: .
       dockerfile: Dockerfile_webapp
-    network_mode: host
-    volumes:
-      - type: bind
-        source: ./cont_shared_folders/log
-        target: /apphome/log
-      - type: bind
-        source: ./cont_shared_folders/webapp/static
-        target: /apphome/webapp/static
