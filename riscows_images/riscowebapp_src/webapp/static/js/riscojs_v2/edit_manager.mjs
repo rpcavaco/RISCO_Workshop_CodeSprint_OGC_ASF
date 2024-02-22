@@ -104,10 +104,8 @@ export class EditingMgr extends MapPrintInRect {
 		p_mapctx.toolmgr.setEditingManager(this);
 	}
 
-	hide(p_mapctx, p_dohide) {
-		
+	hide(p_mapctx, p_dohide) {	
 		this.#hidden = p_dohide;
-
 		this.print(p_mapctx);
 	}
 
@@ -399,10 +397,16 @@ export class EditingMgr extends MapPrintInRect {
 		this.#pending_changes_to_save = "none";
 	}	
 
-	defineEditingLayer(p_mapctx) {
+	defineEditingLayer(p_mapctx, opt_previously_sel_lyrkey) {
 
-		const work_layerkeys = [], editables= {}, types=[];
+		const work_layerkeys = [], editables= {}, types={};
 		let lyr, constraints = null, ret = false;
+
+		// temp_layer_key here works as variable passed by reference
+		const temp_layer_key = [];
+		const layeredit_cfg_attrib_names = ["gisid"];
+
+		const that = this;
 
 		p_mapctx.tocmgr.getAllVectorLayerKeys(work_layerkeys);		
 
@@ -416,40 +420,50 @@ export class EditingMgr extends MapPrintInRect {
 			}
 		}
 
-		const lyrks = Object.keys(editables);
-		const sz = lyrks.length;
+		if (!opt_previously_sel_lyrkey) {
+		
+			const lyrks = Object.keys(editables);
+			const sz = lyrks.length;
 
-		// temp_layer_key here works as variable passed by reference
-		const temp_layer_key = [];
-		const layeredit_cfg_attrib_names = ["gisid"];
 
-		if (sz == 0) {
+			if (sz == 0) {
 
-			console.error("defineEditingLayer: no editable layers, check all layer 'layereditable' attribute in layer config");
+				console.error("defineEditingLayer: no editable layers, check all layer 'layereditable' attribute in layer config");
 
-		} else if (sz > 1) {
+			} else if (sz > 1) {
 
-			if (this.editingLayerKey) {
-				constraints = {
-					"selected": this.editingLayerKey
-				}
-			}
-
-			p_mapctx.getCustomizationObject().messaging_ctrlr.selectInputMessage(
-				p_mapctx.i18n.msg('SELEDITLYR', true), 
-				editables,
-				(evt, p_result, p_value) => { 
-					if (p_value) {
-						temp_layer_key.push(p_value);
+				if (this.editingLayerKey) {
+					constraints = {
+						"selected": this.editingLayerKey
 					}
-				},
-				constraints
-			);
+				}
 
+				(function(pp_mapctx, p_editables, p_constraints) {
+
+					pp_mapctx.getCustomizationObject().messaging_ctrlr.selectInputMessage(
+						pp_mapctx.i18n.msg('SELEDITLYR', true), 
+						p_editables,
+						(evt, p_result, p_value) => { 
+							if (p_value) {
+								const meth = that.defineEditingLayer.bind(that);
+								meth(pp_mapctx, p_value);	
+							}
+						},
+						p_constraints
+					);
+	
+				})(p_mapctx, editables, constraints);
+				
+			} else {
+
+				// this.editingLayerKey = lyrks[0];
+				temp_layer_key.push(lyrks[0]);
+
+			}
+		
 		} else {
 
-			// this.editingLayerKey = lyrks[0];
-			temp_layer_key.push(lyrks[0]);
+			temp_layer_key.push(opt_previously_sel_lyrkey);
 
 		}
 
@@ -495,6 +509,10 @@ export class EditingMgr extends MapPrintInRect {
 
 					case "point":
 						this.#current_tool_name = 'PointEditTool';
+						break;
+
+					case "line":
+						this.#current_tool_name = 'PathEditTool';
 						break;
 
 					default:

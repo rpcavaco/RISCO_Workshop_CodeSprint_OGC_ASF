@@ -4,20 +4,6 @@ import {GlobalConst} from './constants.js';
 import {drawTOCSymb, ctrToolTip, MapPrintInRect} from './customization_canvas_baseclasses.mjs';
 import {I18n} from './i18n.mjs';
 
-
-function getAllFuncs(toCheck) {
-    const props = [];
-    let obj = toCheck;
-    do {
-        props.push(...Object.getOwnPropertyNames(obj));
-    } while (obj = Object.getPrototypeOf(obj));
-    
-    return props.sort().filter((e, i, arr) => { 
-       if (e!=arr[i+1] && typeof toCheck[e] == 'function') return true;
-    });
-}
-
-
 export class TOC  extends MapPrintInRect {
 
 	left;
