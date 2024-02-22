@@ -208,6 +208,33 @@ mapctx.setCustomizationObj(mc, function(p_mapctx, p_mapcustomiz_obj) {
 
 	// alert("ssid:" + document.getElementById("session_id").value);
 
+	let elem, user="NONE", sid="NONE", cnt=0;
+	for (let varname of ["user", "session_id"]) {
+
+		elem = document.getElementById(varname+"_elem");
+		if (elem) {
+
+			switch(varname) {
+				
+				case "user":
+					cnt++;
+					user = elem.value;
+					break;
+				
+				case "session_id":
+					cnt++;
+					sid = elem.value;
+					break;
+
+			}
+
+		}
+	}
+
+	if (cnt == 2) {
+		p_mapctx.enableEditUser(sid, user, true);
+	}	
+
 });
 
 
