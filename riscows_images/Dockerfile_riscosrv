@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.20-bullseye
+FROM golang:1.22-bullseye
 
 ENV GO111MODULE=on
 ENV GOFLAGS=-mod=mod

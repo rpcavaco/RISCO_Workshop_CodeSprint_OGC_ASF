@@ -9,6 +9,8 @@ issues.md
 linkedin_text.txt
 caddylog/
 lixo/
+dist/
+sandbox/
 *.png
 *.jpg
 cont_shared_folders/

@@ -1,6 +1,11 @@
 
 services:
 
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile_postgis
+
   riscosrv:
     build:
       context: .

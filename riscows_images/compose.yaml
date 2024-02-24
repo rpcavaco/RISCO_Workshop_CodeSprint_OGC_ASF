@@ -1,20 +1,6 @@
 
 services:
 
-  riscosrv:
-    image: rpcavaco/risco_workshop_riscosrv:latest
-    container_name: rws_riscosrv
-    network_mode: host
-    volumes:
-      - type: bind
-        source: ./cont_shared_folders/riscosrv/log
-        target: /app/log
-
-  revprox:
-    image: rpcavaco/risco_workshop_revprox:latest
-    container_name: rws_caddyrevprox
-    network_mode: host
-
   webapp:
     image: rpcavaco/risco_workshop_webapp:latest
     container_name: rws_webapp
@@ -26,3 +12,56 @@ services:
       - type: bind
         source: ./cont_shared_folders/webapp/static
         target: /apphome/webapp/static
+    depends_on:
+      riscosrv:
+        condition: service_started
+
+  riscosrv:
+    image: rpcavaco/risco_workshop_riscosrv:latest
+    container_name: rws_riscosrv
+    network_mode: host
+    volumes:
+      - type: bind
+        source: ./cont_shared_folders/riscosrv/log
+        target: /app/log
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: rpcavaco/risco_workshop_database:latest
+    container_name: rws_db
+    network_mode: host
+    environment:
+      POSTGRES_USER: postgres
+      PGUSER: postgres
+      POSTGRES_PASSWORD: pstg_pass501
+    volumes:
+      - pg_data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 10s
+      timeout: 30s
+      retries: 3
+      start_period: 30s 
+
+  adminer:
+    container_name: rws_adminer
+    image: adminer
+    network_mode: host
+
+  revprox:
+    image: rpcavaco/risco_workshop_revprox:latest
+    container_name: rws_caddyrevprox
+    network_mode: host
+
+  # revprox:
+  #   image: rpcavaco/risco_workshop_revprox:latest
+  #   container_name: rws_caddyrevprox
+  #   dns:
+  #     - 8.8.8.8
+  #   ports:
+  #     - '9200:9200'
+         
+volumes:
+  pg_data:        

@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.authors="rpcavaco@gmail.com"
 LABEL org.opencontainers.image.description="PostgreSQL+PostGIS 14-3.4 db container for RISCO Workshop, Feb 2024"
 
 ENV POSTGIS_MAJOR 3
-ENV POSTGIS_VERSION 3.4.1+dfsg-1.pgdg110+1
+ENV POSTGIS_VERSION 3.4.2+dfsg-1.pgdg110+1
 
 RUN apt-get update \
       && apt-cache showpkg postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR \
@@ -25,12 +25,12 @@ COPY ./initdb-postgis.sh /docker-entrypoint-initdb.d/10_postgis.sh
 
 # Create 'risco_v2' schema and fill its structure  
 COPY ./sql/risco_pg_deployment.sql /docker-entrypoint-initdb.d/20_risco_pg_deployment.sql
+COPY ./sql/risco_v2_cfgdata.sql /docker-entrypoint-initdb.d/30_risco_pg_cfgdata.sql
 
-# Create 'gisdata' schema to hold data samples
-COPY ./sql/create_gisdata_schema.sql /docker-entrypoint-initdb.d/20_create_gisdata_schema.sql
+# Create 'evoradata' schema to hold data samples
+COPY ./sql/create_evoradata_schema.sql /docker-entrypoint-initdb.d/40_create_evoradata_schema.sql
 
 # Load data samples
-COPY ./sql/traffic_restrictions.sql /docker-entrypoint-initdb.d/30_traffic_restrictions.sql
+COPY ./sql/evoradata_data.sql /docker-entrypoint-initdb.d/50_evoradata_data.sql
 
-# Load sample configs for RISCO
-# COPY ./risco_cfgs.sql /docker-entrypoint-initdb.d/40_risco_cfgs.sql
+
