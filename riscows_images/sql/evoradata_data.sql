@@ -44,6 +44,8 @@ CREATE SEQUENCE evoradata.dgpc_arqueologia_id_seq
 
 ALTER TABLE evoradata.dgpc_arqueologia_id_seq OWNER TO evoradata;
 
+GRANT USAGE, SELECT ON SEQUENCE evoradata.dgpc_arqueologia_id_seq TO risco_v2;
+
 --
 -- Name: dgpc_arqueologia_id_seq; Type: SEQUENCE OWNED BY; Schema: evoradata; Owner: evoradata
 --
@@ -9022,7 +9024,7 @@ CREATE INDEX "sidx_polygons osm_geom" ON evoradata.polygons_osm USING gist (geom
 -- Name: TABLE dgpc_arqueologia; Type: ACL; Schema: evoradata; Owner: evoradata
 --
 
-GRANT SELECT ON TABLE evoradata.dgpc_arqueologia TO risco_v2;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE evoradata.dgpc_arqueologia TO risco_v2;
 
 
 --
