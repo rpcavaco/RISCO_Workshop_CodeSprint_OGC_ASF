@@ -11,6 +11,7 @@ caddylog/
 lixo/
 dist/
 sandbox/
+image_backup/
 *.png
 *.jpg
 cont_shared_folders/
